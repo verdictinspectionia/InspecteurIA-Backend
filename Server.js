@@ -7,7 +7,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// 🧠 Mémoire simple : tout est stocké ici (tant que le serveur tourne)
+// 🧠 Mémoire simple : tout est stocké ici tant que le serveur tourne
 let inspections = [];
 
 // 🌐 Route racine
@@ -17,7 +17,7 @@ app.get("/", (req, res) => {
 
 // ✅ Route test
 app.get("/api/test", (req, res) => {
-  res.json({ message: "API opérationnelle ✔️" });
+  res.json({ message: "API opérationnelle ✔" });
 });
 
 // 🩺 Route ping (pour Render)
