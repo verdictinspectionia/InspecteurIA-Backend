@@ -5,12 +5,19 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Route racine
 app.get("/", (req, res) => {
-    res.send("Backend Inspecteur IA en ligne 🚀");
+  res.send("Backend Inspecteur IA en ligne 🚀");
 });
 
+// Route test
 app.get("/api/test", (req, res) => {
-    res.json({ message: "API opérationnelle ✔" });
+  res.json({ message: "API opérationnelle ✔" });
+});
+
+// Route ping
+app.get("/ping", (req, res) => {
+  res.send("pong");
 });
 
 const port = process.env.PORT || 3000;
