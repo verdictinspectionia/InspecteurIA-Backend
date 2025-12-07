@@ -61,5 +61,29 @@ app.get("/api/inspect", (req, res) => {
 // 🚀 Lancer le serveur
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-  console.log("Serveur lancé sur le port", port);
+  console.log("Serveur lancé sur le port", port);// === ROUTE IA : CHAT ===
+app.post("/api/chat", async (req, res) => {
+  const { message } = req.body;
+
+  if (!message) {
+    return res.status(400).json({ error: "Message manquant" });
+  }
+
+  res.json({
+    reply: "Voici une réponse IA (on pourra améliorer avec OpenAI)"
+  });
+});
+
+// === ROUTE IA : INSPECT ===
+app.post("/api/inspect", async (req, res) => {
+  const { texte } = req.body;
+
+  if (!texte) {
+    return res.status(400).json({ error: "Texte manquant" });
+  }
+
+  res.json({
+    analyse: "Analyse IA basée sur : " + texte
+  });
+});
 });
