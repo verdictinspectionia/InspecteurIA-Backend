@@ -81,7 +81,7 @@ app.get("/api/inspect/test", (req, res) => {
 });
 
 // === ROUTE IA : CHAT ===
-app.post("/api/chat", (req, res) => {// === ROUTE IA : CHAT ===
+
 app.post("/api/chat", (req, res) => {
   const { message } = req.body;
 
