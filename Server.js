@@ -7,30 +7,30 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// 🧠 Mémoire simple
+// ----- MÉMOIRE SIMPLE -----
 let inspections = [];
 
-// 🌐 Route racine
+// ----- Route racine -----
 app.get("/", (req, res) => {
-  res.send("Backend Inspecteur IA en ligne 🚀");
+  res.send("Backend Inspecteur IA opérationnel 🚀");
 });
 
-// ✅ Route test
+// ----- Route test -----
 app.get("/api/test", (req, res) => {
-  res.json({ message: "API opérationnelle ✔" });
+  res.json({ message: "API opérationnelle ✔️" });
 });
 
-// 🩺 Route ping (Render)
+// ----- Route ping -----
 app.get("/ping", (req, res) => {
   res.send("pong");
 });
 
-// ✍️ Enregistrer une inspection
+// ----- Ajouter une inspection -----
 app.post("/api/inspect", (req, res) => {
   const { texte, source } = req.body;
 
   if (!texte) {
-    return res.status(400).json({ error: "Le champ 'texte' est obligatoire." });
+    return res.status(400).json({ error: "Le texte est obligatoire" });
   }
 
   const inspection = {
@@ -43,12 +43,12 @@ app.post("/api/inspect", (req, res) => {
   inspections.push(inspection);
 
   res.status(201).json({
-    message: "Inspection enregistrée en mémoire ✅",
+    message: "Inspection enregistrée",
     inspection,
   });
 });
 
-// 📥 Récupérer toutes les inspections
+// ----- Récupérer toutes les inspections -----
 app.get("/api/inspect", (req, res) => {
   res.json({
     count: inspections.length,
@@ -56,32 +56,7 @@ app.get("/api/inspect", (req, res) => {
   });
 });
 
-app.get("/api/inspect", (req, res) => {
-  res.json({
-    count: inspections.length,
-    inspections,
-  });
-});
-
-// === ROUTE : TEST AJOUT INSPECTION ===
-app.get("/api/inspect/test", (req, res) => {
-  const nouvelle = {
-    id: inspections.length + 1,
-    texte: "Test automatique",
-    source: "test",
-    createdAt: new Date().toISOString(),
-  };
-
-  inspections.push(nouvelle);
-
-  res.json({
-    message: "Inspection test ajoutée",
-    inspection: nouvelle
-  });
-});
-
-// === ROUTE IA : CHAT ===
-
+// ----- IA : Chat -----
 app.post("/api/chat", (req, res) => {
   const { message } = req.body;
 
@@ -90,11 +65,11 @@ app.post("/api/chat", (req, res) => {
   }
 
   res.json({
-    reply: "Voici une réponse IA (placeholder)"
+    reply: "Voici une réponse IA (placeholder)",
   });
 });
 
-// === ROUTE IA : ANALYSE ===
+// ----- IA : Analyse -----
 app.post("/api/inspect/ai", (req, res) => {
   const { texte } = req.body;
 
@@ -103,12 +78,12 @@ app.post("/api/inspect/ai", (req, res) => {
   }
 
   res.json({
-    analyse: "Analyse IA basée sur : " + texte
+    analyse: "Analyse IA basée sur : " + texte,
   });
 });
 
-// 🚀 Lancer le serveur
+// ----- Lancer serveur -----
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-  console.log("Serveur lancé sur le port", port);
+  console.log("Serveur lancé sur le port " + port);
 });
