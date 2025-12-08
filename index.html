@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Ajouter une Inspection</title>
+<style>
+ body { font-family: Arial; margin: 40px; }
+ textarea, input { width: 100%; padding: 10px; margin-top: 10px; }
+ button { padding: 10px 20px; margin-top: 20px; font-size: 18px; }
+ #resultat { margin-top: 20px; white-space: pre; background:#eee; padding:10px; }
+</style>
+</head>
+<body>
+
+<h1>Ajouter une Inspection</h1>
+
+<form id="formInspect">
+  <label>Texte :</label><br>
+  <textarea id="texte" rows="4"></textarea><br>
+
+  <label>Source (facultatif) :</label><br>
+  <input id="source"><br>
+
+  <button type="submit">Envoyer</button>
+</form>
+
+<pre id="resultat"></pre>
+
+<script>
+document.getElementById("formInspect").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const texte = document.getElementById("texte").value;
+  const source = document.getElementById("source").value;
+
+  const url = "https://inspecteuria-backend.onrender.com/api/inspect";
+
+  const response = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ texte, source })
+  });
+
+  const result = await response.json();
+  document.getElementById("resultat").textContent =
+    JSON.stringify(result, null, 2);
+});
+</script>
+
+</body>
+</html>
