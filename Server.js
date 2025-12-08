@@ -56,7 +56,32 @@ app.get("/api/inspect", (req, res) => {
   });
 });
 
+app.get("/api/inspect", (req, res) => {
+  res.json({
+    count: inspections.length,
+    inspections,
+  });
+});
+
+// === ROUTE : TEST AJOUT INSPECTION ===
+app.get("/api/inspect/test", (req, res) => {
+  const nouvelle = {
+    id: inspections.length + 1,
+    texte: "Test automatique",
+    source: "test",
+    createdAt: new Date().toISOString(),
+  };
+
+  inspections.push(nouvelle);
+
+  res.json({
+    message: "Inspection test ajoutée",
+    inspection: nouvelle
+  });
+});
+
 // === ROUTE IA : CHAT ===
+app.post("/api/chat", (req, res) => {// === ROUTE IA : CHAT ===
 app.post("/api/chat", (req, res) => {
   const { message } = req.body;
 
