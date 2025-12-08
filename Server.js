@@ -1,4 +1,4 @@
-const express = require("express"); 
+const express = require("express");
 const cors = require("cors");
 
 const app = express();
@@ -7,7 +7,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// 🧠 Mémoire simple : tout est stocké ici tant que le serveur tourne
+// 🧠 Mémoire simple
 let inspections = [];
 
 // 🌐 Route racine
@@ -20,19 +20,17 @@ app.get("/api/test", (req, res) => {
   res.json({ message: "API opérationnelle ✔" });
 });
 
-// 🩺 Route ping (pour Render)
+// 🩺 Route ping (Render)
 app.get("/ping", (req, res) => {
   res.send("pong");
 });
 
-// ✍️ Créer une inspection (POST)
+// ✍️ Enregistrer une inspection
 app.post("/api/inspect", (req, res) => {
   const { texte, source } = req.body;
 
   if (!texte) {
-    return res
-      .status(400)
-      .json({ error: "Le champ 'texte' est obligatoire." });
+    return res.status(400).json({ error: "Le champ 'texte' est obligatoire." });
   }
 
   const inspection = {
@@ -50,7 +48,7 @@ app.post("/api/inspect", (req, res) => {
   });
 });
 
-// 📥 Récupérer toutes les inspections (GET)
+// 📥 Récupérer toutes les inspections
 app.get("/api/inspect", (req, res) => {
   res.json({
     count: inspections.length,
@@ -59,7 +57,7 @@ app.get("/api/inspect", (req, res) => {
 });
 
 // === ROUTE IA : CHAT ===
-app.post("/api/chat", async (req, res) => {
+app.post("/api/chat", (req, res) => {
   const { message } = req.body;
 
   if (!message) {
@@ -67,12 +65,12 @@ app.post("/api/chat", async (req, res) => {
   }
 
   res.json({
-    reply: "Voici une réponse IA (on pourra améliorer avec OpenAI)"
+    reply: "Voici une réponse IA (placeholder)"
   });
 });
 
-// === ROUTE IA : INSPECT ANALYSE ===
-app.post("/api/inspect/ai", async (req, res) => {
+// === ROUTE IA : ANALYSE ===
+app.post("/api/inspect/ai", (req, res) => {
   const { texte } = req.body;
 
   if (!texte) {
